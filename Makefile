@@ -8,6 +8,8 @@ INSTALL_DIR := $(DEST_ROOT)/lib/modules/$(KERNEL_VERSION)/extra
 
 default:
 	$(MAKE) -C $(KDIR) M=$$PWD
+	cp hello.ko hello.ko.unstripped
+	$(CROSS_COMPILE)strip -g hello.ko # strip only debugging info
 clean:
 	$(MAKE) -C $(KDIR) M=$$PWD clean
 install: default

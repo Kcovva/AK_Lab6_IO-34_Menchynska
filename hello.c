@@ -62,18 +62,24 @@ static int __init hello_init(void)
 	uint n;
 
 	// Check the parameter value
+	BUG_ON(howmany > 10);
+	/*
 	if (howmany > 10) {
 		printk(KERN_ERR "hello: Parameter value greater than 10!\n");
 		return -EINVAL;
 	}
-
+	*/
 	if (howmany == 0 || howmany >= 5)
 		printk(KERN_WARNING "hello: Not recommended parameter value: %d\n",
 			howmany);
 
 	// Print the message the required number of times
 	for (n = 1; n <= howmany; n++) {
-		ptr = kmalloc(sizeof(*ptr), GFP_KERNEL);
+		if (n == 3)
+			ptr = NULL;
+		else
+			ptr = kmalloc(sizeof(*ptr), GFP_KERNEL);
+
 		ptr->ktime = ktime_get();
 
 		if (ptr == NULL) {
