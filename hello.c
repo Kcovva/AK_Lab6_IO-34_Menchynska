@@ -82,11 +82,6 @@ static int __init hello_init(void)
 
 		ptr->ktime = ktime_get();
 
-		if (ptr == NULL) {
-			printk(KERN_ERR "hello: Memory allocation error\n");
-			return -ENOMEM;
-		}
-
 		list_add_tail(&ptr->tlist, &time_data_head);
 
 		printk(KERN_INFO "hello: #%d Hello, world!\n", n);
